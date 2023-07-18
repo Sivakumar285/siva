@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 struct Node {
 	int key;
 	struct Node *left, *right;
 };
-
-
 struct Node* newNode(int item)
 {
 	struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -14,8 +11,6 @@ struct Node* newNode(int item)
 	temp->left = temp->right = NULL;
 	return temp;
 }
-
-
 void inorder(struct Node* root)
 {
 	if (root != NULL) {
@@ -24,7 +19,6 @@ void inorder(struct Node* root)
 		inorder(root->right);
 	}
 }
-
 struct Node* insert(struct Node* node, int key)
 {
 
@@ -36,18 +30,12 @@ struct Node* insert(struct Node* node, int key)
 		node->left = insert(node->left, key);
 	else
 		node->right = insert(node->right, key);
-
 	return node;
 }
-
-
 struct Node* deleteNode(struct Node* root, int k)
 {
-	
-	if (root == NULL)
-		return root;
-
-	
+if (root == NULL)
+return root;
 	if (root->key > k) {
 		root->left = deleteNode(root->left, k);
 		return root;
@@ -56,8 +44,6 @@ struct Node* deleteNode(struct Node* root, int k)
 		root->right = deleteNode(root->right, k);
 		return root;
 	}
-
-
 	if (root->left == NULL) {
 		struct Node* temp = root->right;
 		free(root);
@@ -68,36 +54,24 @@ struct Node* deleteNode(struct Node* root, int k)
 		free(root);
 		return temp;
 	}
-
-	
 	else {
-
 		struct Node* succParent = root;
-
 		struct Node* succ = root->right;
 		while (succ->left != NULL) {
 			succParent = succ;
 			succ = succ->left;
-		}
-
-		 
+		} 
 		if (succParent != root)
 			succParent->left = succ->right;
 		else
 			succParent->right = succ->right;
-
-
 		root->key = succ->key;
-
 		free(succ);
 		return root;
 	}
 }
-
- 
 int main()
 {
- 
 	struct Node* root = NULL;
 	root = insert(root, 50);
 	root = insert(root, 30);
